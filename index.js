@@ -3,10 +3,12 @@ import puppeteer from 'puppeteer';
 import axios from 'axios';
 import bodyParser from 'body-parser';
 import mustache from 'mustache';
+import cors from 'cors'; // Import the cors middleware
 
 const app = express();
-const port = 3000;
+const port = 3111;
 
+app.use(cors()); // Use the cors middleware
 app.use(bodyParser.json());
 
 app.post('/generate-pdf', async (req, res) => {

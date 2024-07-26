@@ -4,6 +4,6 @@ services:
   pdf-generator:
     build: .
     ports:
-      - "3000:3000"
+      - "3111:3111"
     environment:
       NODE_ENV: development
