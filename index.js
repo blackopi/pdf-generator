@@ -32,7 +32,24 @@ app.post('/generate-pdf', async (req, res) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.setContent(renderedHtml);
-    const pdfBuffer = await page.pdf();
+    const pdfBuffer = await page.pdf({
+      format: 'A4',
+      displayHeaderFooter: true, // Enable headers and footers
+      headerTemplate: `
+        <div style="font-size: 12px; text-align: center; width: 100%; padding: 10px;">
+          
+        </div>`, // Customize your header content here
+      footerTemplate: `
+        <div style="font-size: 12px; text-align: right; width: 100%; padding: 10px; font-size: 10px;">
+          <span>Page <span class="pageNumber"></span> / <span class="totalPages"></span></span>
+        </div>`, // This will display page numbers
+      margin: {
+        top: '20px', // Adjust margin for header
+        bottom: '70px', // Adjust margin for footer
+        left: '20px',
+        right: '20px',
+      },
+    });
 
     await browser.close();
 
